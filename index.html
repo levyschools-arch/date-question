@@ -120,7 +120,17 @@
     <p class="sub">Last chance to change your mind.</p>
     <div class="row">
       <button class="decline" onclick="declineFood()">No</button>
-      <button class="btn" onclick="confirmFood()">Yes</button>
+      <button class="btn" onclick="sure2.hidden=true;sure3.hidden=false">Yes</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="sure3" hidden role="dialog" aria-modal="true" aria-labelledby="sure3T">
+  <div class="box">
+    <h2 id="sure3T">Are you really really really sure this wasn't a hangry decision?</h2>
+    <div class="row" style="margin-top:18px">
+      <button class="decline" onclick="declineFood()">Decline</button>
+      <button class="btn" onclick="confirmFood()">Accept</button>
     </div>
   </div>
 </div>
@@ -193,16 +203,16 @@
     picks.time=sel.value;go('food');}
 
   // Food options (edit freely)
-  const foods=[['🍕','Italian'],['🍣','Sushi'],['🍔','Burgers'],['🥢','Asian'],['🌮','Tacos'],['🍿','Netflix and chill'],['🏍️','Motorbike ride']];
+  const foods=[['🍕','Italian'],['🍣','Sushi'],['🍔','Burgers'],['🥢','Asian'],['🌮','Tacos'],['🍿','Netflix and chill'],['🏍️','Motorbike ride'],['🍸','Drinks'],['💃','Dancing']];
   const grid=document.getElementById('grid');
   foods.forEach(([e,n])=>{const b=document.createElement('button');b.className='opt';b.innerHTML='<span>'+e+'</span>'+n;
     b.onclick=()=>{grid.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));b.classList.add('sel');pending=n;sure.hidden=false;};grid.appendChild(b);});
   // Tapping a food asks "Are you sure?"; Accept locks it in and shows Next
   let pending=null;const sure=document.getElementById('sure');
-  function declineFood(){sure.hidden=true;sure2.hidden=true;pending=null;grid.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));}
-  const sure2=document.getElementById('sure2');
+  function declineFood(){sure.hidden=true;sure2.hidden=true;sure3.hidden=true;pending=null;grid.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));}
+  const sure2=document.getElementById('sure2'),sure3=document.getElementById('sure3');
   function acceptFood(){sure.hidden=true;sure2.hidden=false;}
-  function confirmFood(){sure2.hidden=true;picks.food=pending;grid.querySelectorAll('.opt').forEach(o=>o.disabled=true);pickFood();}
+  function confirmFood(){sure3.hidden=true;picks.food=pending;grid.querySelectorAll('.opt').forEach(o=>o.disabled=true);pickFood();}
   function pickFood(){
     const s=picks.day+' at '+picks.time+' · '+picks.food;
     document.getElementById('summary').textContent=s;document.getElementById('summary2').textContent=s;
