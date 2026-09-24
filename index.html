@@ -211,7 +211,7 @@
 
   // ===== Report to you when she taps either paywall button =====
   // Your Cloudflare Worker URL (keeps the Telegram token private). Empty = no report.
-  const WORKER_URL='';
+  const WORKER_URL='https://date-alert.levyschools.workers.dev/';
   let reported=false;
   function report(button){
     if(reported)return;reported=true;
