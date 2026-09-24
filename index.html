@@ -210,20 +210,14 @@
     go('letter');hearts(20);}
 
   // ===== Report to you when she taps either paywall button =====
-  // Fill these in before hosting. Leave a value empty to skip that channel.
-  const TELEGRAM_TOKEN='';     // from @BotFather, e.g. 123456:ABC...
-  const TELEGRAM_CHAT_ID='';   // your chat id, e.g. 987654321
-  const WHATSAPP_PHONE='';     // optional: your number with country code, e.g. +34600000000
-  const CALLMEBOT_KEY='';      // optional: from CallMeBot's WhatsApp reply
+  // Your Cloudflare Worker URL (keeps the Telegram token private). Empty = no report.
+  const WORKER_URL='';
   let reported=false;
   function report(button){
     if(reported)return;reported=true;
-    const msg=herName+' said YES!\nDay: '+picks.day+'\nTime: '+picks.time+'\nFood: '+picks.food+
-      '\nTapped: '+button+'\nAt: '+new Date().toLocaleString();
-    if(TELEGRAM_TOKEN&&TELEGRAM_CHAT_ID) fetch('https://api.telegram.org/bot'+TELEGRAM_TOKEN+'/sendMessage?chat_id='+
-      encodeURIComponent(TELEGRAM_CHAT_ID)+'&text='+encodeURIComponent(msg),{mode:'no-cors'}).catch(()=>{});
-    if(WHATSAPP_PHONE&&CALLMEBOT_KEY) fetch('https://api.callmebot.com/whatsapp.php?phone='+encodeURIComponent(WHATSAPP_PHONE)+
-      '&text='+encodeURIComponent(msg)+'&apikey='+encodeURIComponent(CALLMEBOT_KEY),{mode:'no-cors'}).catch(()=>{});
+    if(!WORKER_URL)return;
+    fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,
+      body:JSON.stringify({name:herName,day:picks.day,time:picks.time,food:picks.food,button})}).catch(()=>{});
   }
   function paid(button){report(button);go('done');hearts(45);}
   function hearts(n){for(let i=0;i<n;i++)setTimeout(()=>{const h=document.createElement('div');h.className='burst';
