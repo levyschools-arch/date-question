@@ -82,7 +82,7 @@
       <circle cx="68" cy="112" r="7" fill="#f7a8b8" opacity=".6"/><circle cx="132" cy="112" r="7" fill="#f7a8b8" opacity=".6"/>
     </svg>
   </div>
-  <h1><span id="herName">Raquel</span>, will you go on a date with me?</h1>
+  <h1 id="askTitle">Will you go on a date with me?</h1>
   <div class="row">
     <button class="btn" onclick="go('yay')">YES ♥</button>
     <button class="no" id="no">no</button>
@@ -158,11 +158,12 @@
 
 
 <script>
-  // Name comes from the link: yoursite.com/?to=Maria  (falls back to DEFAULT_NAME)
-  const DEFAULT_NAME='Raquel';
-  const herName=(new URLSearchParams(location.search).get('to')||DEFAULT_NAME).trim().slice(0,30);
-  document.getElementById('herName').textContent=herName;
-  document.title='A question for '+herName;
+  // Name comes from the link: yoursite.com/?to=Maria. No name = standard page.
+  const herName=(new URLSearchParams(location.search).get('to')||'').trim().slice(0,30);
+  if(herName){
+    document.getElementById('askTitle').textContent=herName+', will you go on a date with me?';
+    document.title='A question for '+herName;
+  }
 
   // Floating background hearts
   const bg=document.getElementById('bg');
@@ -217,7 +218,7 @@
     if(reported)return;reported=true;
     if(!WORKER_URL)return;
     fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},keepalive:true,
-      body:JSON.stringify({name:herName,day:picks.day,time:picks.time,food:picks.food,button})}).catch(()=>{});
+      body:JSON.stringify({name:herName||'Someone',day:picks.day,time:picks.time,food:picks.food,button})}).catch(()=>{});
   }
   function paid(button){report(button);go('done');hearts(45);}
   function hearts(n){for(let i=0;i<n;i++)setTimeout(()=>{const h=document.createElement('div');h.className='burst';
