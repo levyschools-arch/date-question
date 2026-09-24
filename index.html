@@ -8,7 +8,7 @@
 <title>A question for you</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#fdeef2;--card:#fff;--pink:#f06b9a;--pinkd:#d94f82;--lilac:#c9b6e4;--ink:#7a1f45;--muted:#8f6b7a;}
+  :root{--bg:#f3e9d8;--card:#fff;--pink:#f06b9a;--pinkd:#d94f82;--lilac:#c9b6e4;--ink:#7a1f45;--muted:#8f6b7a;}
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   html,body{min-height:100%}
   body{font-family:Nunito,system-ui,sans-serif;background:var(--bg);color:var(--ink);
@@ -27,11 +27,11 @@
   .photo img{width:100%;height:100%;object-fit:cover}
   .icon{font-size:52px;margin-bottom:12px}
   .badge{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#ffe28a,#ff9a8b);display:flex;align-items:center;justify-content:center;font-size:58px;margin:0 auto 18px}
-  .btn{border:none;border-radius:999px;background:var(--pink);color:#fff;font:700 17px Nunito,sans-serif;padding:14px 30px;cursor:pointer;
-    box-shadow:0 6px 16px rgba(240,107,154,.35);transition:transform .15s,background .15s}
-  .btn:active{transform:scale(.96);background:var(--pinkd)}
+  .btn{border:none;border-radius:999px;background:#111;color:#fff;font:700 17px Nunito,sans-serif;padding:14px 30px;cursor:pointer;
+    box-shadow:0 6px 16px rgba(0,0,0,.2);transition:transform .15s,background .15s}
+  .btn:active{transform:scale(.96);background:#333}
   .row{display:flex;gap:14px;justify-content:center;align-items:center}
-  .no{border:none;border-radius:999px;background:var(--lilac);color:#fff;font:700 14px Nunito,sans-serif;padding:10px 20px;cursor:pointer}
+  .no{border:2px solid #111;border-radius:999px;background:#fff;color:#111;font:700 14px Nunito,sans-serif;padding:10px 20px;cursor:pointer}
   .no.fly{position:fixed;z-index:10;transition:left .2s ease,top .2s ease}
   label{display:block;text-align:left;font-weight:700;margin:0 0 6px 4px;font-size:15px}
   input,select{width:100%;font:16px Nunito,sans-serif;padding:13px 14px;border:2px solid #f6cfdc;border-radius:14px;background:#fff9fb;color:var(--ink);margin-bottom:18px;appearance:none}
@@ -52,7 +52,7 @@
   .modal[hidden]{display:none}
   .modal .box{background:#fff;border-radius:24px;padding:26px 22px;max-width:340px;width:100%;text-align:center;animation:in .3s ease}
   .modal h2{font-family:"Playfair Display",Georgia,serif;font-size:22px;margin-bottom:8px}
-  .decline{border:none;border-radius:999px;background:#eee3ea;color:var(--ink);font:700 16px Nunito,sans-serif;padding:13px 24px;cursor:pointer}
+  .decline{border:2px solid #111;border-radius:999px;background:#fff;color:#111;font:700 16px Nunito,sans-serif;padding:13px 24px;cursor:pointer}
   .opt:disabled{cursor:default;opacity:.45}.opt.sel:disabled{opacity:1}
   #foodNext[hidden]{display:none}
   .err{color:#e0314f;font-size:13px;min-height:18px;margin-top:-8px;margin-bottom:10px}
@@ -67,21 +67,7 @@
 <!-- 1. The question -->
 <section class="card on" id="ask">
   <!-- Swap the emoji for a photo: <div class="photo"><img src="your-photo.jpg" alt=""></div> -->
-  <div class="photo" style="background:#fff3dc">
-    <svg viewBox="0 0 200 200" width="150" height="150" aria-label="smiling golden retriever">
-      <ellipse cx="52" cy="98" rx="26" ry="46" fill="#c9852f" transform="rotate(18 52 98)"/>
-      <ellipse cx="148" cy="98" rx="26" ry="46" fill="#c9852f" transform="rotate(-18 148 98)"/>
-      <ellipse cx="100" cy="95" rx="54" ry="58" fill="#e8a94e"/>
-      <ellipse cx="100" cy="132" rx="36" ry="28" fill="#f6d59a"/>
-      <circle cx="80" cy="88" r="7" fill="#3b2412"/><circle cx="120" cy="88" r="7" fill="#3b2412"/>
-      <circle cx="82" cy="85" r="2.2" fill="#fff"/><circle cx="122" cy="85" r="2.2" fill="#fff"/>
-      <ellipse cx="100" cy="115" rx="11" ry="8" fill="#3b2412"/>
-      <path d="M78 128 Q100 150 122 128" fill="#8a3b2a"/>
-      <path d="M92 138 Q100 158 108 138 Z" fill="#f47a8a"/>
-      <path d="M78 128 Q100 150 122 128" fill="none" stroke="#3b2412" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="68" cy="112" r="7" fill="#f7a8b8" opacity=".6"/><circle cx="132" cy="112" r="7" fill="#f7a8b8" opacity=".6"/>
-    </svg>
-  </div>
+  <div class="photo"><img src="photo.jpg" alt="" width="170" height="170"></div>
   <h1 id="askTitle">Will you go on a date with me?</h1>
   <div class="row">
     <button class="btn" onclick="go('yay')">YES ♥</button>
@@ -111,7 +97,7 @@
 
 <!-- 4. Food vibe -->
 <section class="card" id="food">
-  <h1>What are we feeling? 🍽️</h1>
+  <h1>What are we feeling?</h1>
   <p class="sub">pick your vibe</p>
   <div class="grid" id="grid"></div>
   <button class="btn" id="foodNext" onclick="pickFood()" hidden>Next →</button>
@@ -124,6 +110,17 @@
     <div class="row">
       <button class="decline" onclick="declineFood()">Decline</button>
       <button class="btn" onclick="acceptFood()">Accept</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="sure2" hidden role="dialog" aria-modal="true" aria-labelledby="sure2T">
+  <div class="box">
+    <h2 id="sure2T">Are you really really sure?</h2>
+    <p class="sub">Last chance to change your mind.</p>
+    <div class="row">
+      <button class="decline" onclick="declineFood()">No</button>
+      <button class="btn" onclick="confirmFood()">Yes</button>
     </div>
   </div>
 </div>
@@ -196,15 +193,16 @@
     picks.time=sel.value;go('food');}
 
   // Food options (edit freely)
-  const foods=[['🍕','Pizza'],['🍣','Sushi'],['🍔','Burgers'],['🥢','Asian'],['🌮','Tacos']];
+  const foods=[['🍕','Italian'],['🍣','Sushi'],['🍔','Burgers'],['🥢','Asian'],['🌮','Tacos'],['🍿','Netflix and chill'],['🏍️','Motorbike ride']];
   const grid=document.getElementById('grid');
   foods.forEach(([e,n])=>{const b=document.createElement('button');b.className='opt';b.innerHTML='<span>'+e+'</span>'+n;
     b.onclick=()=>{grid.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));b.classList.add('sel');pending=n;sure.hidden=false;};grid.appendChild(b);});
   // Tapping a food asks "Are you sure?"; Accept locks it in and shows Next
   let pending=null;const sure=document.getElementById('sure');
-  function declineFood(){sure.hidden=true;pending=null;grid.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));}
-  function acceptFood(){sure.hidden=true;picks.food=pending;grid.querySelectorAll('.opt').forEach(o=>o.disabled=true);
-    document.getElementById('foodNext').hidden=false;}
+  function declineFood(){sure.hidden=true;sure2.hidden=true;pending=null;grid.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));}
+  const sure2=document.getElementById('sure2');
+  function acceptFood(){sure.hidden=true;sure2.hidden=false;}
+  function confirmFood(){sure2.hidden=true;picks.food=pending;grid.querySelectorAll('.opt').forEach(o=>o.disabled=true);pickFood();}
   function pickFood(){
     const s=picks.day+' at '+picks.time+' · '+picks.food;
     document.getElementById('summary').textContent=s;document.getElementById('summary2').textContent=s;
